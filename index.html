@@ -322,10 +322,16 @@
 
       .search-filter input {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         border: 2px solid #e1e5e9;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .search-filter input:focus {
+        outline: none;
+        border-color: #4facfe;
       }
 
       .email-status {
@@ -541,6 +547,180 @@
       .bat-performance .performance-metric {
         background: rgba(255, 154, 86, 0.1);
         border-left-color: #ff9a56;
+      }
+
+      /* Enhanced Performance Display Styles */
+      .enhanced-performance-indicator {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-left: 0.5rem;
+        display: inline-block;
+      }
+
+      .standard-performance-indicator {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-left: 0.5rem;
+        display: inline-block;
+      }
+
+      /* Grip Performance Specific Styling */
+      .grip-performance-section {
+        background: rgba(255, 107, 107, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-left: 4px solid #ff6b6b;
+        grid-column: 1 / -1;
+      }
+
+      .angle-performance-section {
+        background: rgba(255, 154, 86, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-left: 4px solid #ff9a56;
+        grid-column: 1 / -1;
+      }
+
+      /* Performance value color coding */
+      .performance-value-excellent {
+        color: #11998e !important;
+        font-weight: bold !important;
+      }
+
+      .performance-value-good {
+        color: #4facfe !important;
+        font-weight: bold !important;
+      }
+
+      .performance-value-poor {
+        color: #e53e3e !important;
+        font-weight: bold !important;
+      }
+
+      /* Enhanced segment headers */
+      .segment-header {
+        grid-column: 1 / -1;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-top: 2px solid #e1e5e9;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .segment-header .player-detail-label {
+        color: #495057;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .foot-segment .segment-header {
+        background: linear-gradient(
+          135deg,
+          rgba(17, 153, 142, 0.1) 0%,
+          rgba(56, 239, 125, 0.1) 100%
+        );
+        border-top-color: #11998e;
+      }
+
+      .foot-segment .segment-header .player-detail-label {
+        color: #11998e;
+      }
+
+      .bat-segment .segment-header {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 154, 86, 0.1) 0%,
+          rgba(255, 106, 0, 0.1) 100%
+        );
+        border-top-color: #ff9a56;
+      }
+
+      .bat-segment .segment-header .player-detail-label {
+        color: #ff9a56;
+      }
+
+      /* Performance metric containers */
+      .performance-metric {
+        background: rgba(79, 172, 254, 0.08);
+        border-radius: 8px;
+        padding: 0.75rem;
+        border-left: 3px solid #4facfe;
+        transition: all 0.2s ease;
+      }
+
+      .performance-metric:hover {
+        background: rgba(79, 172, 254, 0.12);
+        transform: translateX(2px);
+      }
+
+      .foot-performance .performance-metric {
+        background: rgba(17, 153, 142, 0.08);
+        border-left-color: #11998e;
+      }
+
+      .foot-performance .performance-metric:hover {
+        background: rgba(17, 153, 142, 0.12);
+      }
+
+      .bat-performance .performance-metric {
+        background: rgba(255, 154, 86, 0.08);
+        border-left-color: #ff9a56;
+      }
+
+      .bat-performance .performance-metric:hover {
+        background: rgba(255, 154, 86, 0.12);
+      }
+
+      /* Data type indicator styling */
+      .data-type-enhanced {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .data-type-standard {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Responsive adjustments for mobile */
+      @media (max-width: 768px) {
+        .segment-header .player-detail-label {
+          font-size: 1rem;
+        }
+
+        .performance-metric {
+          padding: 0.5rem;
+        }
+
+        .enhanced-performance-indicator,
+        .standard-performance-indicator {
+          font-size: 0.7rem;
+          padding: 0.2rem 0.5rem;
+        }
       }
     </style>
   </head>
@@ -1029,9 +1209,8 @@
               <input
                 type="text"
                 id="submissionSearch"
-                placeholder="Search by Player ID, Handedness, or Drill Type..."
+                placeholder="Search by Player ID, Handedness, Drill Type, or Performance Data (try 'enhanced', 'grip', 'angle')..."
                 oninput="filterSubmissions()"
-                style="margin-bottom: 0"
               />
             </div>
 
@@ -2007,7 +2186,7 @@
             const submissionCard = document.createElement("div");
             submissionCard.className = "player-card";
 
-            // FIXED: Format timestamp properly
+            // Format timestamp properly
             let timestamp = "Unknown";
             if (submission.timestamp) {
               // Check if timestamp is in seconds or milliseconds
@@ -2042,6 +2221,14 @@
               }
             }
 
+            // Check if this submission has enhanced bat data
+            const hasEnhancedBatData =
+              submission.has_enhanced_bat_data === true ||
+              submission.data_type === "performance_update_enhanced_combined" ||
+              (submission.bat_grip_correct_count !== undefined &&
+                submission.bat_grip_correct_count !== null &&
+                submission.bat_grip_correct_count !== "");
+
             submissionCard.innerHTML = `
       <div class="player-header">
           <div class="player-id">ID: ${submission.player_id || "Unknown"}</div>
@@ -2067,13 +2254,19 @@
               }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Drill Count</div>
+              <div class="player-detail-label">Data Type</div>
               <div class="player-detail-value">${
-                submission.bat_drill_count || "Unknown" || submission.foot_drill_count
+                hasEnhancedBatData
+                  ? "Enhanced Combined"
+                  : submission.data_type || "Standard"
               }</div>
           </div>
+          
           <!-- Overall Performance -->
-          <div class="player-detail">
+          <div class="segment-header">
+              <div class="player-detail-label">📊 OVERALL PERFORMANCE</div>
+          </div>
+          <div class="player-detail performance-metric">
               <div class="player-detail-label">Total Drill Count</div>
               <div class="player-detail-value">${
                 submission.total_drill_count !== undefined &&
@@ -2083,7 +2276,7 @@
                   : submission.drill_count || "0"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail performance-metric">
               <div class="player-detail-label">Total Correct Count</div>
               <div class="player-detail-value">${
                 submission.total_correct_count !== undefined &&
@@ -2093,7 +2286,7 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail performance-metric">
               <div class="player-detail-label">Total Wrong Count</div>
               <div class="player-detail-value">${
                 submission.total_wrong_count !== undefined &&
@@ -2103,7 +2296,7 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail performance-metric">
               <div class="player-detail-label">Total Success Rate</div>
               <div class="player-detail-value">${
                 submission.total_success_rate !== undefined &&
@@ -2113,13 +2306,15 @@
                   : "0%"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail performance-metric">
               <div class="player-detail-label">Segments Participated</div>
               <div class="player-detail-value">${
                 submission.segments_participated !== undefined &&
                 submission.segments_participated !== null &&
                 submission.segments_participated !== ""
-                  ? submission.segments_participated
+                  ? Array.isArray(submission.segments_participated)
+                    ? submission.segments_participated.join(", ")
+                    : submission.segments_participated
                   : "Unknown"
               }</div>
           </div>
@@ -2129,10 +2324,10 @@
             submission.foot_segment_participated === true ||
             submission.foot_segment_participated === "true"
               ? `
-          <div class="player-detail" style="grid-column: 1 / -1; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e1e5e9;">
-              <div class="player-detail-label" style="color: #11998e; font-size: 1rem; font-weight: bold;">🦶 FOOT SEGMENT PERFORMANCE</div>
+          <div class="segment-header foot-segment">
+              <div class="player-detail-label">🦶 FOOT SEGMENT PERFORMANCE</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail foot-performance performance-metric">
               <div class="player-detail-label">Foot Drill Count</div>
               <div class="player-detail-value">${
                 submission.foot_drill_count !== undefined &&
@@ -2142,7 +2337,7 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail foot-performance performance-metric">
               <div class="player-detail-label">Foot Correct Count</div>
               <div class="player-detail-value">${
                 submission.foot_correct_count !== undefined &&
@@ -2152,7 +2347,7 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail foot-performance performance-metric">
               <div class="player-detail-label">Foot Wrong Count</div>
               <div class="player-detail-value">${
                 submission.foot_wrong_count !== undefined &&
@@ -2162,7 +2357,7 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
+          <div class="player-detail foot-performance performance-metric">
               <div class="player-detail-label">Foot Success Rate</div>
               <div class="player-detail-value">${
                 submission.foot_success_rate !== undefined &&
@@ -2181,10 +2376,12 @@
             submission.bat_segment_participated === true ||
             submission.bat_segment_participated === "true"
               ? `
-          <div class="player-detail" style="grid-column: 1 / -1; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e1e5e9;">
-              <div class="player-detail-label" style="color: #ff9a56; font-size: 1rem; font-weight: bold;">🏏 BAT SEGMENT PERFORMANCE</div>
+          <div class="segment-header bat-segment">
+              <div class="player-detail-label">🏏 BAT SEGMENT PERFORMANCE</div>
           </div>
-          <div class="player-detail">
+          
+          <!-- Standard Bat Performance Metrics -->
+          <div class="player-detail bat-performance performance-metric">
               <div class="player-detail-label">Bat Drill Count</div>
               <div class="player-detail-value">${
                 submission.bat_drill_count !== undefined &&
@@ -2194,8 +2391,8 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Bat Correct Count</div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Bat Overall Correct</div>
               <div class="player-detail-value">${
                 submission.bat_correct_count !== undefined &&
                 submission.bat_correct_count !== null &&
@@ -2204,8 +2401,8 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Bat Wrong Count</div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Bat Overall Wrong</div>
               <div class="player-detail-value">${
                 submission.bat_wrong_count !== undefined &&
                 submission.bat_wrong_count !== null &&
@@ -2214,8 +2411,8 @@
                   : "0"
               }</div>
           </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Bat Success Rate</div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Bat Overall Success Rate</div>
               <div class="player-detail-value">${
                 submission.bat_success_rate !== undefined &&
                 submission.bat_success_rate !== null &&
@@ -2224,6 +2421,85 @@
                   : "0%"
               }</div>
           </div>
+
+          <!-- Enhanced Bat Performance Metrics (Grip & Angle) -->
+          ${
+            hasEnhancedBatData
+              ? `
+          <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #ff9a56;">
+              <div class="player-detail-label" style="color: #ff6b6b; font-weight: bold; text-align: center;">🤏 GRIP PERFORMANCE BREAKDOWN</div>
+          </div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Grip Correct Count</div>
+              <div class="player-detail-value" style="color: #11998e; font-weight: bold;">${
+                submission.bat_grip_correct_count !== undefined &&
+                submission.bat_grip_correct_count !== null &&
+                submission.bat_grip_correct_count !== ""
+                  ? submission.bat_grip_correct_count
+                  : "0"
+              }</div>
+          </div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Grip Wrong Count</div>
+              <div class="player-detail-value" style="color: #e53e3e; font-weight: bold;">${
+                submission.bat_grip_wrong_count !== undefined &&
+                submission.bat_grip_wrong_count !== null &&
+                submission.bat_grip_wrong_count !== ""
+                  ? submission.bat_grip_wrong_count
+                  : "0"
+              }</div>
+          </div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Grip Success Rate</div>
+              <div class="player-detail-value" style="color: #4facfe; font-weight: bold;">${
+                submission.bat_grip_success_rate !== undefined &&
+                submission.bat_grip_success_rate !== null &&
+                submission.bat_grip_success_rate !== ""
+                  ? submission.bat_grip_success_rate + "%"
+                  : "0%"
+              }</div>
+          </div>
+          
+          <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #ff9a56;">
+              <div class="player-detail-label" style="color: #ff9a56; font-weight: bold; text-align: center;">📐 ANGLE PERFORMANCE BREAKDOWN</div>
+          </div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Angle Correct Count</div>
+              <div class="player-detail-value" style="color: #11998e; font-weight: bold;">${
+                submission.bat_angle_correct_count !== undefined &&
+                submission.bat_angle_correct_count !== null &&
+                submission.bat_angle_correct_count !== ""
+                  ? submission.bat_angle_correct_count
+                  : "0"
+              }</div>
+          </div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Angle Wrong Count</div>
+              <div class="player-detail-value" style="color: #e53e3e; font-weight: bold;">${
+                submission.bat_angle_wrong_count !== undefined &&
+                submission.bat_angle_wrong_count !== null &&
+                submission.bat_angle_wrong_count !== ""
+                  ? submission.bat_angle_wrong_count
+                  : "0"
+              }</div>
+          </div>
+          <div class="player-detail bat-performance performance-metric">
+              <div class="player-detail-label">Angle Success Rate</div>
+              <div class="player-detail-value" style="color: #4facfe; font-weight: bold;">${
+                submission.bat_angle_success_rate !== undefined &&
+                submission.bat_angle_success_rate !== null &&
+                submission.bat_angle_success_rate !== ""
+                  ? submission.bat_angle_success_rate + "%"
+                  : "0%"
+              }</div>
+          </div>
+          `
+              : `
+          <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem;">
+              <div class="player-detail-label" style="color: #666; font-style: italic; text-align: center;">⚠️ Enhanced grip/angle data not available for this submission</div>
+          </div>
+          `
+          }
           `
               : ""
           }
@@ -2254,12 +2530,50 @@
             const submissionId = (submission.submission_id_manual || "")
               .toString()
               .toLowerCase();
+            const dataType = (submission.data_type || "").toLowerCase();
+
+            // NEW: Search in enhanced bat performance data
+            const gripCorrect = (submission.bat_grip_correct_count || "")
+              .toString()
+              .toLowerCase();
+            const gripWrong = (submission.bat_grip_wrong_count || "")
+              .toString()
+              .toLowerCase();
+            const angleCorrect = (submission.bat_angle_correct_count || "")
+              .toString()
+              .toLowerCase();
+            const angleWrong = (submission.bat_angle_wrong_count || "")
+              .toString()
+              .toLowerCase();
+            const gripSuccess = (submission.bat_grip_success_rate || "")
+              .toString()
+              .toLowerCase();
+            const angleSuccess = (submission.bat_angle_success_rate || "")
+              .toString()
+              .toLowerCase();
 
             return (
               playerId.includes(searchTerm) ||
               handedness.includes(searchTerm) ||
               drillType.includes(searchTerm) ||
-              submissionId.includes(searchTerm)
+              submissionId.includes(searchTerm) ||
+              dataType.includes(searchTerm) ||
+              gripCorrect.includes(searchTerm) ||
+              gripWrong.includes(searchTerm) ||
+              angleCorrect.includes(searchTerm) ||
+              angleWrong.includes(searchTerm) ||
+              gripSuccess.includes(searchTerm) ||
+              angleSuccess.includes(searchTerm) ||
+              // Allow searching for "enhanced" to find enhanced submissions
+              (searchTerm.includes("enhanced") &&
+                (submission.has_enhanced_bat_data === true ||
+                  submission.data_type ===
+                    "performance_update_enhanced_combined")) ||
+              // Allow searching for "grip" or "angle" to find enhanced submissions
+              (searchTerm.includes("grip") &&
+                submission.bat_grip_correct_count !== undefined) ||
+              (searchTerm.includes("angle") &&
+                submission.bat_angle_correct_count !== undefined)
             );
           });
 
