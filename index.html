@@ -722,6 +722,114 @@
           padding: 0.2rem 0.5rem;
         }
       }
+
+      /* NEW: Collapsible player card styles */
+      .player-card-header {
+        background: white;
+        padding: 1rem 1.5rem;
+        margin: 0.5rem 0;
+        border-radius: 15px;
+        border-left: 4px solid #11998e;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .player-card-header:hover {
+        transform: translateX(5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .player-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+        flex: 1;
+      }
+
+      .player-summary-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .player-summary-label {
+        font-size: 0.8rem;
+        color: #666;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .player-summary-value {
+        font-size: 1rem;
+        color: #333;
+        font-weight: 600;
+      }
+
+      .expand-arrow {
+        font-size: 1.2rem;
+        color: #11998e;
+        transition: transform 0.3s ease;
+        margin-left: 1rem;
+      }
+
+      .expand-arrow.expanded {
+        transform: rotate(180deg);
+      }
+
+      .player-details-container {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background: #f8f9fa;
+        border-radius: 0 0 15px 15px;
+        margin-top: -0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .player-details-container.expanded {
+        max-height: 2000px; /* Adjust based on your content */
+        padding: 1.5rem;
+        border-left: 4px solid #11998e;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Enhanced registered player cards for submissions */
+      .submission-card-header {
+        border-left-color: #4facfe;
+      }
+
+      .submission-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+        flex: 1;
+      }
+
+      .submission-expand-arrow {
+        color: #4facfe;
+      }
+
+      /* Mobile responsiveness for new layout */
+      @media (max-width: 768px) {
+        .player-summary,
+        .submission-summary {
+          gap: 1rem;
+        }
+
+        .player-summary-item {
+          min-width: 120px;
+        }
+
+        .expand-arrow {
+          font-size: 1rem;
+        }
+      }
     </style>
   </head>
 
@@ -2034,6 +2142,7 @@
         }
 
         // NEW: Display registered players with enhanced styling
+        // UPDATED: Display registered players with collapsible details
         function displayRegisteredPlayers(players) {
           const registeredDiv = document.getElementById("registeredPlayers");
 
@@ -2045,10 +2154,7 @@
 
           registeredDiv.innerHTML = "";
 
-          players.forEach((player) => {
-            const playerCard = document.createElement("div");
-            playerCard.className = "player-card";
-
+          players.forEach((player, index) => {
             // Enhanced timestamp formatting
             let timestamp = "Unknown";
             if (player.timestamp) {
@@ -2073,94 +2179,109 @@
               }
             }
 
-            playerCard.innerHTML = `
-      <div class="player-header">
-          <div class="player-id">ID: ${
-            player.playerId || player.player_id || "Unknown"
-          }</div>
-          <div class="player-timestamp">${timestamp}</div>
+            const playerContainer = document.createElement("div");
+            playerContainer.className = "player-card-container";
+
+            playerContainer.innerHTML = `
+      <!-- Collapsible Header -->
+      <div class="player-card-header" onclick="togglePlayerDetails('registered-${index}')">
+        <div class="player-summary">
+          <div class="player-summary-item">
+            <div class="player-summary-label">Player ID</div>
+            <div class="player-summary-value">${
+              player.playerId || player.player_id || "Unknown"
+            }</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Name</div>
+            <div class="player-summary-value">${player.name || "Unknown"}</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Age</div>
+            <div class="player-summary-value">${player.age || "Unknown"}</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Handedness</div>
+            <div class="player-summary-value">${
+              player.handedness || "Unknown"
+            }</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Registered</div>
+            <div class="player-summary-value">${timestamp}</div>
+          </div>
+        </div>
+        <div class="expand-arrow" id="arrow-registered-${index}">▼</div>
       </div>
-      <div class="player-details">
+
+      <!-- Collapsible Details -->
+      <div class="player-details-container" id="details-registered-${index}">
+        <div class="player-details">
           <div class="player-detail">
-              <div class="player-detail-label">Name</div>
-              <div class="player-detail-value">${player.name || "Unknown"}</div>
+            <div class="player-detail-label">Email</div>
+            <div class="player-detail-value">${player.email || "Unknown"}</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Age</div>
-              <div class="player-detail-value">${player.age || "Unknown"}</div>
+            <div class="player-detail-label">Stance Angle</div>
+            <div class="player-detail-value">${
+              player.stanceAngle !== undefined
+                ? player.stanceAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Email</div>
-              <div class="player-detail-value">${
-                player.email || "Unknown"
-              }</div>
+            <div class="player-detail-label">Forward Defence End Angle</div>
+            <div class="player-detail-value">${
+              player.forwardDefenceEndAngle !== undefined
+                ? player.forwardDefenceEndAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Handedness</div>
-              <div class="player-detail-value">${
-                player.handedness || "Unknown"
-              }</div>
+            <div class="player-detail-label">Forward Drive End Angle</div>
+            <div class="player-detail-value">${
+              player.forwardDriveEndAngle !== undefined
+                ? player.forwardDriveEndAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Stance Angle</div>
-              <div class="player-detail-value">${
-                player.stanceAngle !== undefined
-                  ? player.stanceAngle + "°"
-                  : "Not recorded"
-              }</div>
+            <div class="player-detail-label">Backward Defence End Angle</div>
+            <div class="player-detail-value">${
+              player.backwardDefenceEndAngle !== undefined
+                ? player.backwardDefenceEndAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Forward Defence End Angle</div>
-              <div class="player-detail-value">${
-                player.forwardDefenceEndAngle !== undefined
-                  ? player.forwardDefenceEndAngle + "°"
-                  : "Not recorded"
-              }</div>
+            <div class="player-detail-label">Backward Drive End Angle</div>
+            <div class="player-detail-value">${
+              player.backwardDriveEndAngle !== undefined
+                ? player.backwardDriveEndAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Forward Drive End Angle</div>
-              <div class="player-detail-value">${
-                player.forwardDriveEndAngle !== undefined
-                  ? player.forwardDriveEndAngle + "°"
-                  : "Not recorded"
-              }</div>
+            <div class="player-detail-label">Cut End Angle</div>
+            <div class="player-detail-value">${
+              player.cutEndAngle !== undefined
+                ? player.cutEndAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
           <div class="player-detail">
-              <div class="player-detail-label">Backward Defence End Angle</div>
-              <div class="player-detail-value">${
-                player.backwardDefenceEndAngle !== undefined
-                  ? player.backwardDefenceEndAngle + "°"
-                  : "Not recorded"
-              }</div>
+            <div class="player-detail-label">Pull End Angle</div>
+            <div class="player-detail-value">${
+              player.pullEndAngle !== undefined
+                ? player.pullEndAngle + "°"
+                : "Not recorded"
+            }</div>
           </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Backward Drive End Angle</div>
-              <div class="player-detail-value">${
-                player.backwardDriveEndAngle !== undefined
-                  ? player.backwardDriveEndAngle + "°"
-                  : "Not recorded"
-              }</div>
-          </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Cut End Angle</div>
-              <div class="player-detail-value">${
-                player.cutEndAngle !== undefined
-                  ? player.cutEndAngle + "°"
-                  : "Not recorded"
-              }</div>
-          </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Pull End Angle</div>
-              <div class="player-detail-value">${
-                player.pullEndAngle !== undefined
-                  ? player.pullEndAngle + "°"
-                  : "Not recorded"
-              }</div>
-          </div>
+        </div>
       </div>
     `;
 
-            registeredDiv.appendChild(playerCard);
+            registeredDiv.appendChild(playerContainer);
           });
         }
 
@@ -2182,33 +2303,22 @@
             return bId - aId; // Descending order
           });
 
-          sortedSubmissions.forEach((submission) => {
-            const submissionCard = document.createElement("div");
-            submissionCard.className = "player-card";
-
+          sortedSubmissions.forEach((submission, index) => {
             // Format timestamp properly
             let timestamp = "Unknown";
             if (submission.timestamp) {
-              // Check if timestamp is in seconds or milliseconds
               let timestampValue = parseInt(submission.timestamp);
 
-              // If timestamp is less than 10 digits, it's likely in seconds
-              // If it's 10+ digits, it might be in milliseconds or a different format
               if (timestampValue < 10000000000) {
-                // Assume it's in seconds, convert to milliseconds
                 timestampValue = timestampValue * 1000;
               } else if (timestampValue.toString().length === 13) {
-                // Already in milliseconds
                 timestampValue = timestampValue;
               } else {
-                // For very large numbers (like your 1755250465), treat as seconds
                 timestampValue = timestampValue * 1000;
               }
 
-              // Create date object and format
               const date = new Date(timestampValue);
 
-              // Check if date is valid and reasonable (not in 1970 or far future)
               if (
                 !isNaN(date.getTime()) &&
                 date.getFullYear() >= 2020 &&
@@ -2216,7 +2326,6 @@
               ) {
                 timestamp = date.toLocaleString();
               } else {
-                // Fallback: if timestamp seems invalid, show "Invalid date" and raw value
                 timestamp = `Invalid date (${submission.timestamp})`;
               }
             }
@@ -2229,37 +2338,51 @@
                 submission.bat_grip_correct_count !== null &&
                 submission.bat_grip_correct_count !== "");
 
-            submissionCard.innerHTML = `
-      <div class="player-header">
-          <div class="player-id">ID: ${submission.player_id || "Unknown"}</div>
-          <div class="player-timestamp">${timestamp}</div>
+            const submissionContainer = document.createElement("div");
+            submissionContainer.className = "player-card-container";
+
+            submissionContainer.innerHTML = `
+      <!-- Collapsible Header -->
+      <div class="player-card-header submission-card-header" onclick="togglePlayerDetails('submission-${index}')">
+        <div class="submission-summary">
+          <div class="player-summary-item">
+            <div class="player-summary-label">Player ID</div>
+            <div class="player-summary-value">${
+              submission.player_id || "Unknown"
+            }</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Drill Type</div>
+            <div class="player-summary-value">${
+              submission.drill_type || "Unknown"
+            }</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Success Rate</div>
+            <div class="player-summary-value">${
+              submission.total_success_rate !== undefined &&
+              submission.total_success_rate !== null &&
+              submission.total_success_rate !== ""
+                ? submission.total_success_rate + "%"
+                : "0%"
+            }</div>
+          </div>
+          <div class="player-summary-item">
+            <div class="player-summary-label">Submitted</div>
+            <div class="player-summary-value">${timestamp}</div>
+          </div>
+        </div>
+        <div class="expand-arrow submission-expand-arrow" id="arrow-submission-${index}">▼</div>
       </div>
-      <div class="player-details">
+
+      <!-- Collapsible Details -->
+      <div class="player-details-container" id="details-submission-${index}">
+        <div class="player-details">
           <div class="player-detail">
-              <div class="player-detail-label">Player ID</div>
-              <div class="player-detail-value">${
-                submission.player_id || "Unknown"
-              }</div>
-          </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Handedness</div>
-              <div class="player-detail-value">${
-                submission.handedness || "Unknown"
-              }</div>
-          </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Drill Type</div>
-              <div class="player-detail-value">${
-                submission.drill_type || "Unknown"
-              }</div>
-          </div>
-          <div class="player-detail">
-              <div class="player-detail-label">Data Type</div>
-              <div class="player-detail-value">${
-                hasEnhancedBatData
-                  ? "Enhanced Combined"
-                  : submission.data_type || "Standard"
-              }</div>
+            <div class="player-detail-label">Handedness</div>
+            <div class="player-detail-value">${
+              submission.handedness || "Unknown"
+            }</div>
           </div>
           
           <!-- Overall Performance -->
@@ -2294,16 +2417,6 @@
                 submission.total_wrong_count !== ""
                   ? submission.total_wrong_count
                   : "0"
-              }</div>
-          </div>
-          <div class="player-detail performance-metric">
-              <div class="player-detail-label">Total Success Rate</div>
-              <div class="player-detail-value">${
-                submission.total_success_rate !== undefined &&
-                submission.total_success_rate !== null &&
-                submission.total_success_rate !== ""
-                  ? submission.total_success_rate + "%"
-                  : "0%"
               }</div>
           </div>
           <div class="player-detail performance-metric">
@@ -2503,10 +2616,11 @@
           `
               : ""
           }
+        </div>
       </div>
     `;
 
-            submissionsDiv.appendChild(submissionCard);
+            submissionsDiv.appendChild(submissionContainer);
           });
         }
 
@@ -2673,6 +2787,28 @@
             }
           }
         });
+
+        // NEW: Toggle player details visibility
+        function togglePlayerDetails(detailsId) {
+          const detailsContainer = document.getElementById(
+            `details-${detailsId}`
+          );
+          const arrow = document.getElementById(`arrow-${detailsId}`);
+
+          if (detailsContainer && arrow) {
+            const isExpanded = detailsContainer.classList.contains("expanded");
+
+            if (isExpanded) {
+              // Collapse
+              detailsContainer.classList.remove("expanded");
+              arrow.classList.remove("expanded");
+            } else {
+              // Expand
+              detailsContainer.classList.add("expanded");
+              arrow.classList.add("expanded");
+            }
+          }
+        }
       </script>
     </div>
   </body>
