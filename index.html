@@ -1367,7 +1367,7 @@
           if (!ipAddress) {
             updateConnectionStatus(
               "disconnected",
-              "❌ Please enter ESP32 IP address"
+              "Connection error: Please enter ESP32 IP address"
             );
             return;
           }
@@ -1380,12 +1380,12 @@
           if (!ipRegex.test(ipAddress)) {
             updateConnectionStatus(
               "disconnected",
-              "❌ Invalid IP address format"
+              "Connection error: Invalid IP address format"
             );
             return;
           }
 
-          updateConnectionStatus("connecting", "🔄 Connecting to ESP32...");
+          updateConnectionStatus("connecting", "Connecting to ESP32...");
           document.getElementById("connectBtn").disabled = true;
 
           try {
@@ -1397,7 +1397,7 @@
               console.log("Connected to ESP32");
               isConnected = true;
               connectionAttempts = 0;
-              updateConnectionStatus("connected", "✅ Connected to ESP32");
+              updateConnectionStatus("connected", "Connected to ESP32");
               document.getElementById("connectBtn").textContent = "Disconnect";
               document.getElementById("connectBtn").disabled = false;
               document.getElementById("captureAngleBtn").disabled = false;
@@ -1563,7 +1563,7 @@
             // Show success message
             const captureBtn = document.getElementById("captureAngleBtn");
             const originalText = captureBtn.textContent;
-            captureBtn.textContent = "✅ Captured!";
+            captureBtn.textContent = "Captured!";
             captureBtn.disabled = true;
 
             setTimeout(() => {
@@ -2387,7 +2387,7 @@
           
           <!-- Overall Performance -->
           <div class="segment-header">
-              <div class="player-detail-label">📊 OVERALL PERFORMANCE</div>
+              <div class="player-detail-label">OVERALL PERFORMANCE</div>
           </div>
           <div class="player-detail performance-metric">
               <div class="player-detail-label">Total Drill Count</div>
@@ -2438,7 +2438,7 @@
             submission.foot_segment_participated === "true"
               ? `
           <div class="segment-header foot-segment">
-              <div class="player-detail-label">🦶 FOOT SEGMENT PERFORMANCE</div>
+              <div class="player-detail-label">FOOT SEGMENT PERFORMANCE</div>
           </div>
           <div class="player-detail foot-performance performance-metric">
               <div class="player-detail-label">Foot Drill Count</div>
@@ -2490,7 +2490,7 @@
             submission.bat_segment_participated === "true"
               ? `
           <div class="segment-header bat-segment">
-              <div class="player-detail-label">🏏 BAT SEGMENT PERFORMANCE</div>
+              <div class="player-detail-label">BAT SEGMENT PERFORMANCE</div>
           </div>
           
           <!-- Standard Bat Performance Metrics -->
@@ -2540,7 +2540,7 @@
             hasEnhancedBatData
               ? `
           <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #ff9a56;">
-              <div class="player-detail-label" style="color: #ff6b6b; font-weight: bold; text-align: center;">🤏 GRIP PERFORMANCE BREAKDOWN</div>
+              <div class="player-detail-label" style="color: #ff6b6b; font-weight: bold; text-align: center;">GRIP PERFORMANCE BREAKDOWN</div>
           </div>
           <div class="player-detail bat-performance performance-metric">
               <div class="player-detail-label">Grip Correct Count</div>
@@ -2574,7 +2574,7 @@
           </div>
           
           <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #ff9a56;">
-              <div class="player-detail-label" style="color: #ff9a56; font-weight: bold; text-align: center;">📐 ANGLE PERFORMANCE BREAKDOWN</div>
+              <div class="player-detail-label" style="color: #ff9a56; font-weight: bold; text-align: center;">ANGLE PERFORMANCE BREAKDOWN</div>
           </div>
           <div class="player-detail bat-performance performance-metric">
               <div class="player-detail-label">Angle Correct Count</div>
@@ -2609,7 +2609,7 @@
           `
               : `
           <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem;">
-              <div class="player-detail-label" style="color: #666; font-style: italic; text-align: center;">⚠️ Enhanced grip/angle data not available for this submission</div>
+              <div class="player-detail-label" style="color: #666; font-style: italic; text-align: center;">Enhanced grip/angle data not available for this submission</div>
           </div>
           `
           }
