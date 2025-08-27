@@ -17,6 +17,11 @@
         });
       })();
     </script>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
 
     <style>
       * {
@@ -27,7 +32,7 @@
 
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -35,30 +40,34 @@
       }
 
       .container {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
         overflow: hidden;
         width: 100%;
         max-width: 900px;
-        margin: 20px;
+        margin: 24px;
       }
 
       .header {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
-        padding: 2rem;
+        background: linear-gradient(90deg, #2d3e50 0%, #4facfe 100%);
+        color: #fff;
+        padding: 2rem 1rem;
         text-align: center;
+        border-bottom: 1px solid #e1e5e9;
       }
 
       .header h1 {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         margin-bottom: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
       }
 
       .header p {
-        opacity: 0.9;
-        font-size: 1.1rem;
+        opacity: 0.85;
+        font-size: 1.05rem;
+        font-weight: 500;
       }
 
       .content {
@@ -90,35 +99,52 @@
       .form-group select {
         width: 100%;
         padding: 12px;
-        border: 2px solid #e1e5e9;
-        border-radius: 10px;
+        border: 1.5px solid #e1e5e9;
+        border-radius: 8px;
         font-size: 1rem;
-        transition: border-color 0.3s ease;
+        transition: border-color 0.3s;
+        background: #f8f9fa;
       }
 
       .form-group input:focus,
       .form-group select:focus {
         outline: none;
         border-color: #4facfe;
+        background: #fff;
       }
 
       .btn {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
+        background: linear-gradient(90deg, #2d3e50 0%, #4facfe 100%);
+        color: #fff;
         border: none;
-        padding: 12px 30px;
-        border-radius: 25px;
+        padding: 12px 32px;
+        border-radius: 22px;
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: box-shadow 0.2s, background 0.2s;
         margin-right: 10px;
         margin-bottom: 10px;
+        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
       }
 
-      .btn:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+      .btn.secondary {
+        background: linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);
+      }
+
+      .btn.danger {
+        background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+      }
+
+      .btn.success {
+        background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+      }
+
+      .btn.warning {
+        background: linear-gradient(90deg, #ff9a56 0%, #ff6a00 100%);
       }
 
       .btn:disabled {
@@ -126,43 +152,39 @@
         cursor: not-allowed;
       }
 
-      .btn.secondary {
-        background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
-      }
-
-      .btn.danger {
-        background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-      }
-
-      .btn.success {
-        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-      }
-
-      .btn.warning {
-        background: linear-gradient(135deg, #ff9a56 0%, #ff6a00 100%);
+      .btn:hover:not(:disabled) {
+        box-shadow: 0 4px 16px rgba(44, 62, 80, 0.18);
+        background: linear-gradient(90deg, #4facfe 0%, #2d3e50 100%);
       }
 
       .tabs {
         display: flex;
         border-bottom: 2px solid #e1e5e9;
         margin-bottom: 2rem;
+        gap: 2rem; /* Add space between tabs */
+        justify-content: center; /* Center the tabs */
+        padding: 0 1rem; /* Add horizontal padding */
       }
 
       .tab {
-        flex: 1;
-        padding: 1rem;
-        text-align: center;
-        cursor: pointer;
         background: #f8f9fa;
         border: none;
         font-size: 1rem;
         font-weight: 600;
-        transition: all 0.3s ease;
+        transition: background 0.3s, color 0.3s;
+        color: #2d3e50;
+        border-bottom: 2px solid transparent;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        padding: 1rem 2rem; /* Increase padding around tab text */
       }
 
       .tab.active {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        color: white;
+        background: linear-gradient(90deg, #4facfe 0%, #2d3e50 100%);
+        color: #fff;
+        border-bottom: 2px solid #4facfe;
       }
 
       .tab-content {
@@ -182,16 +204,16 @@
 
       .message.success {
         display: block;
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+        background: #eafaf1;
+        color: #11998e;
+        border: 1px solid #38ef7d;
       }
 
       .message.error {
         display: block;
         background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
+        color: #c0392b;
+        border: 1px solid #e74c3c;
       }
 
       .user-info {
@@ -267,13 +289,28 @@
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
       }
 
-      .player-header {
+      .player-card-header,
+      .player-card,
+      .player-details-container.expanded {
+        box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+      }
+
+      .player-card-header {
+        background: #f8f9fa;
+        border-left: 4px solid #4facfe;
+        border-radius: 14px;
+        padding: 1rem 1.5rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid #e1e5e9;
+        transition: box-shadow 0.2s, border-color 0.2s;
+      }
+
+      .player-card-header:hover {
+        border-left-color: #11998e;
+        box-shadow: 0 6px 20px rgba(44, 62, 80, 0.15);
       }
 
       .player-id {
@@ -323,10 +360,10 @@
       .search-filter input {
         width: 100%;
         padding: 12px;
-        border: 2px solid #e1e5e9;
-        border-radius: 10px;
+        border: 1.5px solid #e1e5e9;
+        border-radius: 8px;
         font-size: 1rem;
-        transition: border-color 0.3s ease;
+        transition: border-color 0.3s;
       }
 
       .search-filter input:focus {
@@ -338,26 +375,30 @@
         padding: 0.5rem;
         margin-top: 0.5rem;
         border-radius: 5px;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
       }
 
       .email-status.sending {
         background: #fff3cd;
-        color: #856404;
+        color: #ff9a56;
         border: 1px solid #ffeaa7;
       }
 
       .email-status.sent {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+        background: #eafaf1;
+        color: #11998e;
+        border: 1px solid #38ef7d;
       }
 
       .email-status.failed {
         background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
+        color: #c0392b;
+        border: 1px solid #e74c3c;
       }
 
       /* NEW: Real-time angle monitoring styles */
@@ -366,7 +407,8 @@
         border-radius: 15px;
         padding: 1.5rem;
         margin-bottom: 2rem;
-        border-left: 4px solid #ff9a56;
+        border-left: 4px solid #4facfe;
+        box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
       }
 
       .angle-controls {
@@ -377,21 +419,21 @@
       }
 
       .realtime-display {
-        background: #1a1a1a;
-        color: #00ff41;
+        background: #23272f;
+        color: #38ef7d;
         padding: 2rem;
         border-radius: 10px;
         text-align: center;
         font-family: "Courier New", monospace;
         margin-bottom: 1rem;
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 2px 10px rgba(44, 62, 80, 0.18);
       }
 
       .angle-value {
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: bold;
         margin: 0.5rem 0;
-        text-shadow: 0 0 10px #00ff41;
+        text-shadow: 0 0 10px #38ef7d;
       }
 
       .angle-label {
@@ -403,27 +445,31 @@
       .connection-status {
         padding: 0.5rem 1rem;
         border-radius: 20px;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         font-weight: 600;
         margin-bottom: 1rem;
         text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
       }
 
       .connection-status.connected {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+        background: #eafaf1;
+        color: #11998e;
+        border: 1px solid #38ef7d;
       }
 
       .connection-status.disconnected {
         background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
+        color: #c0392b;
+        border: 1px solid #e74c3c;
       }
 
       .connection-status.connecting {
         background: #fff3cd;
-        color: #856404;
+        color: #ff9a56;
         border: 1px solid #ffeaa7;
       }
 
@@ -470,22 +516,26 @@
       }
 
       .reset-angle-btn {
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-        color: white;
+        background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+        color: #fff;
         border: none;
         padding: 8px 12px;
         border-radius: 8px;
         font-size: 0.85rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: box-shadow 0.2s, background 0.2s;
         min-width: 60px;
-        height: 44px; /* Match input height */
+        height: 44px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        justify-content: center;
       }
 
       .reset-angle-btn:hover:not(:disabled) {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        box-shadow: 0 4px 12px rgba(231, 76, 60, 0.18);
+        background: linear-gradient(90deg, #c0392b 0%, #e74c3c 100%);
       }
 
       .reset-angle-btn:disabled {
@@ -836,7 +886,7 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>Player Dashboard</h1>
+        <h1><i class="fa-solid fa-user-group"></i> Player Dashboard</h1>
         <p>Player Registration & Management System</p>
       </div>
 
@@ -844,24 +894,24 @@
         <!-- Login Section -->
         <div class="auth-section active" id="loginSection">
           <h2 style="text-align: center; margin-bottom: 2rem; color: #333">
-            Player Login
+            <i class="fa-solid fa-right-to-bracket"></i> Player Login
           </h2>
 
           <div class="message" id="loginMessage"></div>
 
           <form id="loginForm">
             <div class="form-group">
-              <label for="username">Username:</label>
+              <label for="username"><i class="fa-solid fa-user"></i> Username:</label>
               <input type="text" id="username" name="username" required />
             </div>
 
             <div class="form-group">
-              <label for="password">Password:</label>
+              <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
               <input type="password" id="password" name="password" required />
             </div>
 
             <div style="text-align: center">
-              <button type="submit" class="btn">Login</button>
+              <button type="submit" class="btn"><i class="fa-solid fa-arrow-right"></i> Login</button>
             </div>
           </form>
 
@@ -876,8 +926,12 @@
         <!-- Dashboard Section -->
         <div class="dashboard-section" id="dashboardSection">
           <div class="user-info">
-            <h3>Welcome, <span id="currentUser"></span>!</h3>
-            <button class="btn danger" onclick="logout()">Logout</button>
+            <h3>
+              Welcome, <span id="currentUser"></span>!
+            </h3>
+            <button class="btn danger" onclick="logout()">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
           </div>
 
           <div class="tabs">
@@ -894,7 +948,9 @@
 
           <!-- Register Player Tab -->
           <div class="tab-content active" id="registerTab">
-            <h3 style="margin-bottom: 1.5rem">Register New Player</h3>
+            <h3 style="margin-bottom: 1.5rem">
+              <i class="fa-solid fa-user-plus"></i> Register New Player
+            </h3>
 
             <div class="message" id="registerMessage"></div>
 
@@ -938,32 +994,22 @@
 
               <!-- Real-time Angle Monitor Section -->
               <div class="angle-monitor-section">
-                <h4 style="margin-bottom: 1rem; color: #ff9a56">
-                  Real-time Angle Monitor
+                <h4 style="margin-bottom: 1rem; color: #4facfe">
+                  <i class="fa-solid fa-wave-square"></i> Real-time Angle Monitor
                 </h4>
 
-                <div
-                  id="connectionStatus"
-                  class="connection-status disconnected"
-                >
-                  Not Connected to ESP32
+                <div id="connectionStatus" class="connection-status disconnected">
+                  <i class="fa-solid fa-circle-xmark"></i> Not Connected to the Bat Segment
                 </div>
 
                 <div class="angle-controls">
                   <div class="form-group">
-                    <label for="esp32IpAddress">ESP32 IP Address:</label>
-                    <input
-                      type="text"
-                      id="esp32IpAddress"
-                      placeholder="10.34.29.41"
-                      value="10.34.29.41"
-                    />
+                    <label for="esp32IpAddress"><i class="fa-solid fa-network-wired"></i> Bat Segment IP Address:</label>
+                    <input type="text" id="esp32IpAddress" placeholder="10.34.29.41" value="10.34.29.41" />
                   </div>
 
                   <div class="form-group">
-                    <label for="selectedAngleType"
-                      >Select Angle to Measure:</label
-                    >
+                    <label for="selectedAngleType"><i class="fa-solid fa-ruler-combined"></i> Select Angle to Measure:</label>
                     <select id="selectedAngleType">
                       <option value="stanceAngle">Stance Angle</option>
                       <option value="forwardDefenceEndAngle">
@@ -985,9 +1031,47 @@
                 </div>
 
                 <div class="realtime-display">
-                  <div class="angle-label">Current Angle:</div>
+                  <div class="angle-label">Main Angle:</div>
                   <div class="angle-value" id="realtimeAngle">0.0°</div>
-                  <div style="font-size: 0.9rem; opacity: 0.7" id="angleStatus">
+
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: 1fr 1fr;
+                      gap: 1rem;
+                      margin-top: 1rem;
+                    "
+                  >
+                    <div style="text-align: center">
+                      <div class="angle-label" style="font-size: 0.9rem">
+                        Pitch:
+                      </div>
+                      <div
+                        class="angle-value"
+                        id="realtimePitch"
+                        style="font-size: 2rem"
+                      >
+                        0.0°
+                      </div>
+                    </div>
+                    <div style="text-align: center">
+                      <div class="angle-label" style="font-size: 0.9rem">
+                        Roll:
+                      </div>
+                      <div
+                        class="angle-value"
+                        id="realtimeRoll"
+                        style="font-size: 2rem"
+                      >
+                        0.0°
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem"
+                    id="angleStatus"
+                  >
                     Waiting for data...
                   </div>
                 </div>
@@ -999,7 +1083,7 @@
                     id="connectBtn"
                     onclick="toggleConnection()"
                   >
-                    Connect to ESP32
+                    <i class="fa-solid fa-plug"></i> Connect to Bat Segment
                   </button>
                   <button
                     type="button"
@@ -1008,7 +1092,7 @@
                     onclick="captureCurrentAngle()"
                     disabled
                   >
-                    📌 Capture Angle
+                    <i class="fa-solid fa-thumbtack"></i> Capture Angle
                   </button>
                 </div>
               </div>
@@ -1094,15 +1178,11 @@
               </div>
 
               <div style="text-align: center">
-                <button type="submit" class="btn">Register Player</button>
+                <button type="submit" class="btn"><i class="fa-solid fa-user-plus"></i> Register Player</button>
               </div>
             </form>
 
-            <div
-              id="emailStatus"
-              class="email-status"
-              style="display: none"
-            ></div>
+            <div id="emailStatus" class="email-status" style="display: none"></div>
 
             <div class="form-group">
               <label for="stanceAngle">Stance Angle (degrees):</label>
@@ -1123,7 +1203,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('stanceAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1149,7 +1229,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('forwardDefenceEndAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1175,7 +1255,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('forwardDriveEndAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1201,7 +1281,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('backwardDefenceEndAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1227,7 +1307,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('backwardDriveEndAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1251,7 +1331,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('cutEndAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1275,7 +1355,7 @@
                   class="reset-angle-btn"
                   onclick="resetAngleField('pullEndAngle')"
                 >
-                  Reset
+                  <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
               </div>
             </div>
@@ -1283,7 +1363,9 @@
 
           <!-- Registered Players Tab -->
           <div class="tab-content" id="registeredTab">
-            <h3 style="margin-bottom: 1.5rem">Registered Players</h3>
+            <h3 style="margin-bottom: 1.5rem">
+              <i class="fa-solid fa-users"></i> Registered Players
+            </h3>
 
             <div class="search-filter">
               <input
@@ -1297,7 +1379,7 @@
 
             <div style="text-align: center; margin-bottom: 1rem">
               <button class="btn success" onclick="fetchRegisteredPlayers()">
-                Load Registered Players
+                <i class="fa-solid fa-arrows-rotate"></i> Load Registered Players
               </button>
             </div>
 
@@ -1311,20 +1393,22 @@
 
           <!-- Player Submissions Tab -->
           <div class="tab-content" id="submissionsTab">
-            <h3 style="margin-bottom: 1.5rem">Player Submissions</h3>
+            <h3 style="margin-bottom: 1.5rem">
+              <i class="fa-solid fa-file-lines"></i> Player Submissions
+            </h3>
 
             <div class="search-filter">
               <input
                 type="text"
                 id="submissionSearch"
-                placeholder="Search by Player ID, Handedness, Drill Type, or Performance Data (try 'enhanced', 'grip', 'angle')..."
+                placeholder="Search by Player ID, Handedness, Drill Type, or Performance Data..."
                 oninput="filterSubmissions()"
               />
             </div>
 
             <div style="text-align: center; margin-bottom: 1rem">
               <button class="btn secondary" onclick="fetchSubmissions()">
-                Load Submissions
+                <i class="fa-solid fa-arrows-rotate"></i> Load Submissions
               </button>
             </div>
 
@@ -1394,10 +1478,10 @@
             esp32WebSocket = new WebSocket(`ws://${ipAddress}:81`);
 
             esp32WebSocket.onopen = function (event) {
-              console.log("Connected to ESP32");
+              console.log("Connected to Bat Segment");
               isConnected = true;
               connectionAttempts = 0;
-              updateConnectionStatus("connected", "✅ Connected to ESP32");
+              updateConnectionStatus("connected", "✅ Connected to Bat Segment");
               document.getElementById("connectBtn").textContent = "Disconnect";
               document.getElementById("connectBtn").disabled = false;
               document.getElementById("captureAngleBtn").disabled = false;
@@ -1414,20 +1498,57 @@
             esp32WebSocket.onmessage = function (event) {
               try {
                 const data = JSON.parse(event.data);
+
+                if (data.pitch !== undefined) {
+                  currentPitch = parseFloat(data.pitch).toFixed(1);
+                }
+
+                if (data.roll !== undefined) {
+                  currentRoll = parseFloat(data.roll).toFixed(1);
+                }
+
+                // Update all available angle data
+                let hasData = false;
+
+                if (data.pitch !== undefined) {
+                  document.getElementById("realtimePitch").textContent =
+                    parseFloat(data.pitch).toFixed(1) + "°";
+                  hasData = true;
+                }
+
+                if (data.roll !== undefined) {
+                  document.getElementById("realtimeRoll").textContent =
+                    parseFloat(data.roll).toFixed(1) + "°";
+                  hasData = true;
+                }
+
                 if (data.angle !== undefined) {
                   currentAngle = parseFloat(data.angle).toFixed(1);
                   document.getElementById("realtimeAngle").textContent =
                     currentAngle + "°";
+                  hasData = true;
+                }
+
+                if (hasData) {
                   document.getElementById(
                     "angleStatus"
                   ).textContent = `Live data (${new Date().toLocaleTimeString()})`;
 
                   // Add visual feedback for real-time updates
                   const angleDisplay = document.getElementById("realtimeAngle");
-                  angleDisplay.style.textShadow = "0 0 20px #00ff41";
-                  setTimeout(() => {
-                    angleDisplay.style.textShadow = "0 0 10px #00ff41";
-                  }, 200);
+                  const pitchDisplay = document.getElementById("realtimePitch");
+                  const rollDisplay = document.getElementById("realtimeRoll");
+
+                  [angleDisplay, pitchDisplay, rollDisplay].forEach(
+                    (display) => {
+                      if (display) {
+                        display.style.textShadow = "0 0 20px #00ff41";
+                        setTimeout(() => {
+                          display.style.textShadow = "0 0 10px #00ff41";
+                        }, 200);
+                      }
+                    }
+                  );
                 }
               } catch (error) {
                 console.error("Error parsing angle data:", error);
@@ -1483,7 +1604,7 @@
 
           document.getElementById("realtimeAngle").textContent = "0.0°";
           document.getElementById("connectBtn").textContent =
-            "Connect to ESP32";
+            "Connect to Bat Segment";
           document.getElementById("connectBtn").disabled = false;
           document.getElementById("captureAngleBtn").disabled = true;
 
@@ -1527,15 +1648,22 @@
 
         function updateConnectionStatus(status, message) {
           const statusElement = document.getElementById("connectionStatus");
+          let icon = "";
+          if (status === "connected") icon = '<i class="fa-solid fa-circle-check"></i>';
+          else if (status === "disconnected") icon = '<i class="fa-solid fa-circle-xmark"></i>';
+          else if (status === "connecting") icon = '<i class="fa-solid fa-spinner fa-spin"></i>';
           statusElement.className = `connection-status ${status}`;
-          statusElement.textContent = message;
+          statusElement.innerHTML = icon + " " + message.replace(/^[^a-zA-Z0-9]+/, "");
         }
 
+        let currentPitch = 0;
+        let currentRoll = 0;
+        // NEW: Object to store captured angle data with pitch and roll
+        let capturedAngleData = {};
+
         function captureCurrentAngle() {
-          if (!isConnected || currentAngle === 0) {
-            alert(
-              "No angle data available. Please ensure ESP32 is connected and sending data."
-            );
+          if (!isConnected) {
+            alert("Not connected to Bat Segment. Please connect first.");
             return;
           }
 
@@ -1543,12 +1671,41 @@
             document.getElementById("selectedAngleType").value;
           const angleInput = document.getElementById(selectedAngleType);
 
-          if (angleInput) {
-            angleInput.value = currentAngle;
-            angleInput.classList.add("angle-input-readonly");
+          // Check if we have any angle data
+          const availableAngles = [];
+          if (currentAngle !== 0)
+            availableAngles.push(`Main: ${currentAngle}°`);
+          if (currentPitch !== 0)
+            availableAngles.push(`Pitch: ${currentPitch}°`);
+          if (currentRoll !== 0) availableAngles.push(`Roll: ${currentRoll}°`);
 
+          if (availableAngles.length === 0) {
+            alert(
+              "No angle data available. Please ensure ESP32 is sending data."
+            );
+            return;
+          }
+
+          // Store all three values for this angle type
+          capturedAngleData[selectedAngleType] = {
+            mainAngle: parseFloat(currentAngle),
+            pitch: parseFloat(currentPitch),
+            roll: parseFloat(currentRoll),
+            timestamp: new Date().toISOString(),
+          };
+
+          if (angleInput) {
+            // Display the main angle in the input field
+            angleInput.value = currentAngle;
             // Update the display box
             updateAngleDisplay(selectedAngleType, currentAngle);
+
+            // Log all captured data
+            console.log(`Captured ${selectedAngleType}:`, {
+              main: currentAngle + "°",
+              pitch: currentPitch + "°",
+              roll: currentRoll + "°",
+            });
 
             // Visual feedback
             const originalBg = angleInput.style.backgroundColor;
@@ -1560,14 +1717,13 @@
               angleInput.classList.remove("angle-input-readonly");
             }, 2000);
 
-            // Show success message
             const captureBtn = document.getElementById("captureAngleBtn");
-            const originalText = captureBtn.textContent;
-            captureBtn.textContent = "✅ Captured!";
+            const originalText = captureBtn.innerHTML;
+            captureBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Captured!';
             captureBtn.disabled = true;
 
             setTimeout(() => {
-              captureBtn.textContent = originalText;
+              captureBtn.innerHTML = originalText;
               captureBtn.disabled = false;
             }, 1500);
           }
@@ -1660,7 +1816,7 @@
           document.getElementById("realtimeAngle").textContent = "0.0°";
           document.getElementById("angleStatus").textContent =
             "Waiting for data...";
-          updateConnectionStatus("disconnected", "❌ Not Connected to ESP32");
+          updateConnectionStatus("disconnected", "Not Connected to the Bat Segment");
 
           // Clear registered players data
           allRegisteredPlayers = [];
@@ -1750,7 +1906,7 @@
             try {
               emailStatus.style.display = "block";
               emailStatus.className = "email-status sending";
-              emailStatus.textContent = "Sending welcome email...";
+              emailStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending welcome email...';
 
               // Send email using EmailJS v4 API
               emailjs
@@ -1766,25 +1922,18 @@
                   }
                 )
                 .then((response) => {
-                  console.log("Email sent successfully:", response);
                   emailStatus.className = "email-status sent";
-                  emailStatus.textContent = `Welcome email sent successfully to ${playerEmail}!`;
+                  emailStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Welcome email sent successfully to ${playerEmail}!`;
                   resolve(response);
                 })
                 .catch((error) => {
-                  console.error("Email sending error:", error);
                   emailStatus.className = "email-status failed";
-                  emailStatus.textContent = `Email sending failed: ${
-                    error?.text || error?.message || "Unknown error occurred"
-                  }`;
+                  emailStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Email sending failed: ${error?.text || error?.message || "Unknown error occurred"}`;
                   reject(error);
                 });
             } catch (error) {
-              console.error("Email sending error:", error);
               emailStatus.className = "email-status failed";
-              emailStatus.textContent = `Email sending failed: ${
-                error?.message || "Unknown error occurred"
-              }`;
+              emailStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Email sending failed: ${error?.message || "Unknown error occurred"}`;
               reject(error);
             }
           });
@@ -1940,6 +2089,7 @@
             }
 
             // Updated payload to include all angle fields - MOVED AFTER playerId generation
+            // Enhanced payload to include pitch and roll data for each angle
             const payload = {
               playerId,
               name: playerName,
@@ -1954,6 +2104,21 @@
               cutEndAngle: parseFloat(cutEndAngle),
               pullEndAngle: parseFloat(pullEndAngle),
               timestamp: new Date().toISOString(),
+
+              // NEW: Add pitch and roll data for each captured angle
+              angleData: {
+                stanceAngle: capturedAngleData.stanceAngle || null,
+                forwardDefenceEndAngle:
+                  capturedAngleData.forwardDefenceEndAngle || null,
+                forwardDriveEndAngle:
+                  capturedAngleData.forwardDriveEndAngle || null,
+                backwardDefenceEndAngle:
+                  capturedAngleData.backwardDefenceEndAngle || null,
+                backwardDriveEndAngle:
+                  capturedAngleData.backwardDriveEndAngle || null,
+                cutEndAngle: capturedAngleData.cutEndAngle || null,
+                pullEndAngle: capturedAngleData.pullEndAngle || null,
+              },
             };
 
             // Show the generated player ID to user
@@ -1989,6 +2154,7 @@
             }
 
             // Clear form - Updated to clear all new fields
+            // Clear form - Updated to clear all new fields and captured data
             document.getElementById("playerName").value = "";
             document.getElementById("playerAge").value = "";
             document.getElementById("playerEmail").value = "";
@@ -2000,6 +2166,10 @@
             document.getElementById("backwardDriveEndAngle").value = "";
             document.getElementById("cutEndAngle").value = "";
             document.getElementById("pullEndAngle").value = "";
+
+            // NEW: Clear captured angle data
+            capturedAngleData = {};
+            clearAngleDisplays();
 
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
@@ -2036,12 +2206,12 @@
             }
 
             // Visual feedback for reset button
-            const originalText = resetBtn.textContent;
-            resetBtn.textContent = "✓ Reset";
+            const originalText = resetBtn.innerHTML;
+            resetBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Reset';
             resetBtn.disabled = true;
 
             setTimeout(() => {
-              resetBtn.textContent = originalText;
+              resetBtn.innerHTML = originalText;
               resetBtn.disabled = false;
             }, 1000);
           }
@@ -2097,6 +2267,8 @@
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+
 
             const data = await response.json();
 
@@ -2234,7 +2406,10 @@
             }</div>
           </div>
           <div class="player-detail">
-            <div class="player-detail-label">Backward Defence End Angle</div>
+           
+            <div class="player-detail-label">
+              Backward Defence End Angle
+            </div>
             <div class="player-detail-value">${
               player.backwardDefenceEndAngle !== undefined
                 ? player.backwardDefenceEndAngle + "°"
@@ -2242,7 +2417,9 @@
             }</div>
           </div>
           <div class="player-detail">
-            <div class="player-detail-label">Backward Drive End Angle</div>
+            <div class="player-detail-label">
+              Backward Drive End Angle
+            </div>
             <div class="player-detail-value">${
               player.backwardDriveEndAngle !== undefined
                 ? player.backwardDriveEndAngle + "°"
@@ -2375,7 +2552,7 @@
           
           <!-- Overall Performance -->
           <div class="segment-header">
-              <div class="player-detail-label">📊 OVERALL PERFORMANCE</div>
+              <div class="player-detail-label">OVERALL PERFORMANCE</div>
           </div>
           <div class="player-detail performance-metric">
               <div class="player-detail-label">Total Drill Count</div>
@@ -2426,7 +2603,7 @@
             submission.foot_segment_participated === "true"
               ? `
           <div class="segment-header foot-segment">
-              <div class="player-detail-label">🦶 FOOT SEGMENT PERFORMANCE</div>
+              <div class="player-detail-label">FOOT SEGMENT PERFORMANCE</div>
           </div>
           <div class="player-detail foot-performance performance-metric">
               <div class="player-detail-label">Foot Drill Count</div>
@@ -2478,7 +2655,7 @@
             submission.bat_segment_participated === "true"
               ? `
           <div class="segment-header bat-segment">
-              <div class="player-detail-label">🏏 BAT SEGMENT PERFORMANCE</div>
+              <div class="player-detail-label">BAT SEGMENT PERFORMANCE</div>
           </div>
           
           <!-- Standard Bat Performance Metrics -->
@@ -2528,7 +2705,7 @@
             hasEnhancedBatData
               ? `
           <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #ff9a56;">
-              <div class="player-detail-label" style="color: #ff6b6b; font-weight: bold; text-align: center;">🤏 GRIP PERFORMANCE BREAKDOWN</div>
+              <div class="player-detail-label" style="color: #ff9a56; font-weight: bold; text-align: center;">GRIP PERFORMANCE BREAKDOWN</div>
           </div>
           <div class="player-detail bat-performance performance-metric">
               <div class="player-detail-label">Grip Correct Count</div>
@@ -2562,7 +2739,7 @@
           </div>
           
           <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #ff9a56;">
-              <div class="player-detail-label" style="color: #ff9a56; font-weight: bold; text-align: center;">📐 ANGLE PERFORMANCE BREAKDOWN</div>
+              <div class="player-detail-label" style="color: #ff9a56; font-weight: bold; text-align: center;">ANGLE PERFORMANCE BREAKDOWN</div>
           </div>
           <div class="player-detail bat-performance performance-metric">
               <div class="player-detail-label">Angle Correct Count</div>
@@ -2597,7 +2774,7 @@
           `
               : `
           <div class="player-detail bat-performance" style="grid-column: 1 / -1; margin-top: 0.5rem;">
-              <div class="player-detail-label" style="color: #666; font-style: italic; text-align: center;">⚠️ Enhanced grip/angle data not available for this submission</div>
+              <div class="player-detail-label" style="color: #666; font-style: italic; text-align: center;">Enhanced grip/angle data not available for this submission</div>
           </div>
           `
           }
