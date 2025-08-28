@@ -901,23 +901,17 @@
 
           <form id="loginForm">
             <div class="form-group">
-              <label for="username"
-                ><i class="fa-solid fa-user"></i> Username:</label
-              >
+              <label for="username"><i class="fa-solid fa-user"></i> Username:</label>
               <input type="text" id="username" name="username" required />
             </div>
 
             <div class="form-group">
-              <label for="password"
-                ><i class="fa-solid fa-lock"></i> Password:</label
-              >
+              <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
               <input type="password" id="password" name="password" required />
             </div>
 
             <div style="text-align: center">
-              <button type="submit" class="btn">
-                <i class="fa-solid fa-arrow-right"></i> Login
-              </button>
+              <button type="submit" class="btn"><i class="fa-solid fa-arrow-right"></i> Login</button>
             </div>
           </form>
 
@@ -932,7 +926,9 @@
         <!-- Dashboard Section -->
         <div class="dashboard-section" id="dashboardSection">
           <div class="user-info">
-            <h3>Welcome, <span id="currentUser"></span>!</h3>
+            <h3>
+              Welcome, <span id="currentUser"></span>!
+            </h3>
             <button class="btn danger" onclick="logout()">
               <i class="fa-solid fa-right-from-bracket"></i> Logout
             </button>
@@ -999,37 +995,21 @@
               <!-- Real-time Angle Monitor Section -->
               <div class="angle-monitor-section">
                 <h4 style="margin-bottom: 1rem; color: #4facfe">
-                  <i class="fa-solid fa-wave-square"></i> Real-time Angle
-                  Monitor
+                  <i class="fa-solid fa-wave-square"></i> Real-time Angle Monitor
                 </h4>
 
-                <div
-                  id="connectionStatus"
-                  class="connection-status disconnected"
-                >
-                  <i class="fa-solid fa-circle-xmark"></i> Not Connected to the
-                  Bat Segment
+                <div id="connectionStatus" class="connection-status disconnected">
+                  <i class="fa-solid fa-circle-xmark"></i> Not Connected to the Bat Segment
                 </div>
 
                 <div class="angle-controls">
                   <div class="form-group">
-                    <label for="esp32IpAddress"
-                      ><i class="fa-solid fa-network-wired"></i> Bat Segment IP
-                      Address:</label
-                    >
-                    <input
-                      type="text"
-                      id="esp32IpAddress"
-                      placeholder="10.34.29.41"
-                      value="10.34.29.41"
-                    />
+                    <label for="esp32IpAddress"><i class="fa-solid fa-network-wired"></i> Bat Segment IP Address:</label>
+                    <input type="text" id="esp32IpAddress" placeholder="10.34.29.41" value="10.34.29.41" />
                   </div>
 
                   <div class="form-group">
-                    <label for="selectedAngleType"
-                      ><i class="fa-solid fa-ruler-combined"></i> Select Angle
-                      to Measure:</label
-                    >
+                    <label for="selectedAngleType"><i class="fa-solid fa-ruler-combined"></i> Select Angle to Measure:</label>
                     <select id="selectedAngleType">
                       <option value="stanceAngle">Stance Angle</option>
                       <option value="forwardDefenceEndAngle">
@@ -1198,17 +1178,11 @@
               </div>
 
               <div style="text-align: center">
-                <button type="submit" class="btn">
-                  <i class="fa-solid fa-user-plus"></i> Register Player
-                </button>
+                <button type="submit" class="btn"><i class="fa-solid fa-user-plus"></i> Register Player</button>
               </div>
             </form>
 
-            <div
-              id="emailStatus"
-              class="email-status"
-              style="display: none"
-            ></div>
+            <div id="emailStatus" class="email-status" style="display: none"></div>
 
             <div class="form-group">
               <label for="stanceAngle">Stance Angle (degrees):</label>
@@ -1405,8 +1379,7 @@
 
             <div style="text-align: center; margin-bottom: 1rem">
               <button class="btn success" onclick="fetchRegisteredPlayers()">
-                <i class="fa-solid fa-arrows-rotate"></i> Load Registered
-                Players
+                <i class="fa-solid fa-arrows-rotate"></i> Load Registered Players
               </button>
             </div>
 
@@ -1461,28 +1434,6 @@
         let connectionAttempts = 0;
         const MAX_RECONNECTION_ATTEMPTS = 5;
 
-        // Add network connectivity detection
-        let networkOnline = navigator.onLine;
-
-        // Listen for network changes
-        window.addEventListener("online", function () {
-          console.log("Network came online");
-          networkOnline = true;
-          if (!isConnected && connectionAttempts > 0) {
-            console.log("Attempting reconnection due to network recovery");
-            connectToESP32();
-          }
-        });
-
-        window.addEventListener("offline", function () {
-          console.log("Network went offline");
-          networkOnline = false;
-          if (isConnected) {
-            console.log("Disconnecting due to network loss");
-            handleDisconnection();
-          }
-        });
-
         // NEW: WebSocket connection functions
         function toggleConnection() {
           if (isConnected) {
@@ -1500,63 +1451,42 @@
           if (!ipAddress) {
             updateConnectionStatus(
               "disconnected",
-              "Please enter ESP32 IP address"
+              "❌ Please enter ESP32 IP address"
             );
             return;
           }
 
           // Update IP address placeholder if user changed it
           document.getElementById("esp32IpAddress").placeholder = ipAddress;
-
-          // Enhanced IP validation
+          // Validate IP address format
           const ipRegex =
             /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
           if (!ipRegex.test(ipAddress)) {
-            updateConnectionStatus("disconnected", "Invalid IP address format");
+            updateConnectionStatus(
+              "disconnected",
+              "❌ Invalid IP address format"
+            );
             return;
           }
 
-          updateConnectionStatus("connecting", "Connecting to ESP32...");
+          updateConnectionStatus("connecting", "🔄 Connecting to ESP32...");
           document.getElementById("connectBtn").disabled = true;
 
           try {
-            const wsUrl = `ws://${ipAddress}:81`;
-            console.log(`Attempting to connect to: ${wsUrl}`);
-            console.log(
-              "Browser WebSocket support:",
-              typeof WebSocket !== "undefined"
-            );
-
-            // Enhanced WebSocket creation with error handling
-            esp32WebSocket = new WebSocket(wsUrl);
-
-            // Set binary type for better compatibility
-            esp32WebSocket.binaryType = "arraybuffer";
+            console.log(`Attempting to connect to ws://${ipAddress}:81`);
+            // Create WebSocket connection (assuming ESP32 runs WebSocket server on port 81)
+            esp32WebSocket = new WebSocket(`ws://${ipAddress}:81`);
 
             esp32WebSocket.onopen = function (event) {
-              console.log("WebSocket connection opened successfully");
-              console.log("Connection event:", event);
-
+              console.log("Connected to Bat Segment");
               isConnected = true;
               connectionAttempts = 0;
-              updateConnectionStatus("connected", "Connected to Bat Segment");
-
-              const connectBtn = document.getElementById("connectBtn");
-              const captureBtn = document.getElementById("captureAngleBtn");
-              const angleStatus = document.getElementById("angleStatus");
-
-              if (connectBtn) {
-                connectBtn.textContent = "Disconnect";
-                connectBtn.disabled = false;
-              }
-
-              if (captureBtn) {
-                captureBtn.disabled = false;
-              }
-
-              if (angleStatus) {
-                angleStatus.textContent = "Receiving data...";
-              }
+              updateConnectionStatus("connected", "✅ Connected to Bat Segment");
+              document.getElementById("connectBtn").textContent = "Disconnect";
+              document.getElementById("connectBtn").disabled = false;
+              document.getElementById("captureAngleBtn").disabled = false;
+              document.getElementById("angleStatus").textContent =
+                "Receiving data...";
 
               // Clear any reconnection interval
               if (reconnectInterval) {
@@ -1566,137 +1496,97 @@
             };
 
             esp32WebSocket.onmessage = function (event) {
-              console.log("WebSocket message received:", event.data);
-
               try {
-                let data;
+                const data = JSON.parse(event.data);
 
-                // Handle different data types
-                if (typeof event.data === "string") {
-                  data = JSON.parse(event.data);
-                } else if (event.data instanceof ArrayBuffer) {
-                  const decoder = new TextDecoder();
-                  data = JSON.parse(decoder.decode(event.data));
-                } else {
-                  console.warn("Unexpected data type:", typeof event.data);
-                  return;
+                if (data.pitch !== undefined) {
+                  currentPitch = parseFloat(data.pitch).toFixed(1);
                 }
 
-                console.log("Parsed data:", data);
+                if (data.roll !== undefined) {
+                  currentRoll = parseFloat(data.roll).toFixed(1);
+                }
 
-                // Update angles with validation
+                // Update all available angle data
                 let hasData = false;
 
-                if (data.pitch !== undefined && !isNaN(data.pitch)) {
-                  currentPitch = parseFloat(data.pitch).toFixed(1);
-                  const pitchElement = document.getElementById("realtimePitch");
-                  if (pitchElement) {
-                    pitchElement.textContent = currentPitch + "°";
-                  }
+                if (data.pitch !== undefined) {
+                  document.getElementById("realtimePitch").textContent =
+                    parseFloat(data.pitch).toFixed(1) + "°";
                   hasData = true;
                 }
 
-                if (data.roll !== undefined && !isNaN(data.roll)) {
-                  currentRoll = parseFloat(data.roll).toFixed(1);
-                  const rollElement = document.getElementById("realtimeRoll");
-                  if (rollElement) {
-                    rollElement.textContent = currentRoll + "°";
-                  }
+                if (data.roll !== undefined) {
+                  document.getElementById("realtimeRoll").textContent =
+                    parseFloat(data.roll).toFixed(1) + "°";
                   hasData = true;
                 }
 
-                if (data.angle !== undefined && !isNaN(data.angle)) {
+                if (data.angle !== undefined) {
                   currentAngle = parseFloat(data.angle).toFixed(1);
-                  const angleElement = document.getElementById("realtimeAngle");
-                  if (angleElement) {
-                    angleElement.textContent = currentAngle + "°";
-                  }
+                  document.getElementById("realtimeAngle").textContent =
+                    currentAngle + "°";
                   hasData = true;
                 }
 
                 if (hasData) {
-                  const angleStatus = document.getElementById("angleStatus");
-                  if (angleStatus) {
-                    angleStatus.textContent = `Live data (${new Date().toLocaleTimeString()})`;
-                  }
+                  document.getElementById(
+                    "angleStatus"
+                  ).textContent = `Live data (${new Date().toLocaleTimeString()})`;
 
-                  // Enhanced visual feedback
-                  const displays = [
-                    document.getElementById("realtimeAngle"),
-                    document.getElementById("realtimePitch"),
-                    document.getElementById("realtimeRoll"),
-                  ].filter((el) => el !== null);
+                  // Add visual feedback for real-time updates
+                  const angleDisplay = document.getElementById("realtimeAngle");
+                  const pitchDisplay = document.getElementById("realtimePitch");
+                  const rollDisplay = document.getElementById("realtimeRoll");
 
-                  displays.forEach((display) => {
-                    display.style.textShadow = "0 0 20px #38ef7d";
-                    display.style.transition = "text-shadow 0.2s ease";
-
-                    setTimeout(() => {
-                      display.style.textShadow = "0 0 10px #38ef7d";
-                    }, 200);
-                  });
+                  [angleDisplay, pitchDisplay, rollDisplay].forEach(
+                    (display) => {
+                      if (display) {
+                        display.style.textShadow = "0 0 20px #00ff41";
+                        setTimeout(() => {
+                          display.style.textShadow = "0 0 10px #00ff41";
+                        }, 200);
+                      }
+                    }
+                  );
                 }
               } catch (error) {
-                console.error("Error parsing WebSocket data:", error);
-                console.log("Raw data:", event.data);
-
-                const angleStatus = document.getElementById("angleStatus");
-                if (angleStatus) {
-                  angleStatus.textContent = "Data format error";
-                }
+                console.error("Error parsing angle data:", error);
+                document.getElementById("angleStatus").textContent =
+                  "Data format error";
               }
             };
 
             esp32WebSocket.onclose = function (event) {
-              console.log("WebSocket connection closed");
-              console.log("Close event:", event);
-              console.log(
-                "Code:",
-                event.code,
-                "Reason:",
-                event.reason,
-                "WasClean:",
-                event.wasClean
-              );
+              console.log("Disconnected from ESP32");
               handleDisconnection();
             };
 
             esp32WebSocket.onerror = function (error) {
-              console.error("WebSocket error occurred:", error);
-              console.log("Error details:", {
-                type: error.type,
-                target: error.target,
-                currentTarget: error.currentTarget,
-              });
-
-              updateConnectionStatus(
-                "disconnected",
-                "Connection failed - Check ESP32 IP and network"
+              console.error("WebSocket error:", error);
+              console.error(
+                "Connection failed. Make sure ESP32 is powered on and connected to the same network."
               );
               handleDisconnection();
             };
 
-            // Enhanced connection timeout with better feedback
+            // Add connection timeout
             setTimeout(() => {
               if (
                 esp32WebSocket &&
                 esp32WebSocket.readyState === WebSocket.CONNECTING
               ) {
-                console.log("Connection timeout - WebSocket still connecting");
+                console.log("Connection timeout");
                 esp32WebSocket.close();
                 updateConnectionStatus(
                   "disconnected",
-                  "Connection timeout - Check ESP32 IP and network"
+                  "❌ Connection timeout - Check ESP32 IP and network"
                 );
                 document.getElementById("connectBtn").disabled = false;
               }
-            }, 10000);
+            }, 10000); // 10 second timeout
           } catch (error) {
-            console.error("WebSocket creation error:", error);
-            updateConnectionStatus(
-              "disconnected",
-              "Failed to create WebSocket connection"
-            );
+            console.error("Connection error:", error);
             handleDisconnection();
           }
         }
@@ -1709,44 +1599,19 @@
         }
 
         function handleDisconnection(manual = false) {
-          console.log("Handling disconnection, manual:", manual);
-
           isConnected = false;
           currentAngle = 0;
-          currentPitch = 0;
-          currentRoll = 0;
 
-          // Safely update UI elements
-          const elements = {
-            realtimeAngle: document.getElementById("realtimeAngle"),
-            realtimePitch: document.getElementById("realtimePitch"),
-            realtimeRoll: document.getElementById("realtimeRoll"),
-            connectBtn: document.getElementById("connectBtn"),
-            captureBtn: document.getElementById("captureAngleBtn"),
-            angleStatus: document.getElementById("angleStatus"),
-          };
-
-          if (elements.realtimeAngle)
-            elements.realtimeAngle.textContent = "0.0°";
-          if (elements.realtimePitch)
-            elements.realtimePitch.textContent = "0.0°";
-          if (elements.realtimeRoll) elements.realtimeRoll.textContent = "0.0°";
-
-          if (elements.connectBtn) {
-            elements.connectBtn.textContent = "Connect to Bat Segment";
-            elements.connectBtn.disabled = false;
-          }
-
-          if (elements.captureBtn) {
-            elements.captureBtn.disabled = true;
-          }
+          document.getElementById("realtimeAngle").textContent = "0.0°";
+          document.getElementById("connectBtn").textContent =
+            "Connect to Bat Segment";
+          document.getElementById("connectBtn").disabled = false;
+          document.getElementById("captureAngleBtn").disabled = true;
 
           if (manual) {
-            updateConnectionStatus("disconnected", "Disconnected");
-            if (elements.angleStatus) {
-              elements.angleStatus.textContent = "Not connected";
-            }
-
+            updateConnectionStatus("disconnected", "❌ Disconnected");
+            document.getElementById("angleStatus").textContent =
+              "Not connected";
             // Clear reconnection attempts
             if (reconnectInterval) {
               clearInterval(reconnectInterval);
@@ -1754,79 +1619,41 @@
             }
             connectionAttempts = 0;
           } else {
-            // Enhanced reconnection logic with exponential backoff
+            // Automatic reconnection logic
             connectionAttempts++;
             if (connectionAttempts <= MAX_RECONNECTION_ATTEMPTS) {
               updateConnectionStatus(
                 "connecting",
-                `Reconnecting... (${connectionAttempts}/${MAX_RECONNECTION_ATTEMPTS})`
+                `🔄 Reconnecting... (${connectionAttempts}/${MAX_RECONNECTION_ATTEMPTS})`
               );
-
-              if (elements.angleStatus) {
-                elements.angleStatus.textContent = "Reconnecting...";
-              }
-
-              // Exponential backoff: 3s, 6s, 12s, 24s, 48s
-              const backoffTime = Math.min(
-                3000 * Math.pow(2, connectionAttempts - 1),
-                48000
-              );
-              console.log(
-                `Reconnection attempt ${connectionAttempts} in ${backoffTime}ms`
-              );
+              document.getElementById("angleStatus").textContent =
+                "Reconnecting...";
 
               reconnectInterval = setTimeout(() => {
-                console.log(
-                  `Executing reconnection attempt ${connectionAttempts}`
-                );
                 connectToESP32();
-              }, backoffTime);
+              }, 3000);
             } else {
               updateConnectionStatus(
                 "disconnected",
-                "Connection failed after multiple attempts"
+                "❌ Connection failed after multiple attempts"
               );
-
-              if (elements.angleStatus) {
-                elements.angleStatus.textContent = "Connection failed";
-              }
-
+              document.getElementById("angleStatus").textContent =
+                "Connection failed";
               connectionAttempts = 0;
-              console.log("Max reconnection attempts reached");
             }
           }
 
-          // Clean up WebSocket
-          if (esp32WebSocket) {
-            try {
-              esp32WebSocket.close();
-            } catch (e) {
-              console.warn("Error closing WebSocket:", e);
-            }
-          }
           esp32WebSocket = null;
         }
 
         function updateConnectionStatus(status, message) {
           const statusElement = document.getElementById("connectionStatus");
-          if (!statusElement) {
-            console.warn("Connection status element not found");
-            return;
-          }
-
           let icon = "";
-          if (status === "connected")
-            icon = '<i class="fa-solid fa-circle-check"></i>';
-          else if (status === "disconnected")
-            icon = '<i class="fa-solid fa-circle-xmark"></i>';
-          else if (status === "connecting")
-            icon = '<i class="fa-solid fa-spinner fa-spin"></i>';
-
+          if (status === "connected") icon = '<i class="fa-solid fa-circle-check"></i>';
+          else if (status === "disconnected") icon = '<i class="fa-solid fa-circle-xmark"></i>';
+          else if (status === "connecting") icon = '<i class="fa-solid fa-spinner fa-spin"></i>';
           statusElement.className = `connection-status ${status}`;
-          statusElement.innerHTML = icon + " " + message;
-
-          // Log for debugging
-          console.log(`Connection Status: ${status} - ${message}`);
+          statusElement.innerHTML = icon + " " + message.replace(/^[^a-zA-Z0-9]+/, "");
         }
 
         let currentPitch = 0;
@@ -1892,8 +1719,7 @@
 
             const captureBtn = document.getElementById("captureAngleBtn");
             const originalText = captureBtn.innerHTML;
-            captureBtn.innerHTML =
-              '<i class="fa-solid fa-circle-check"></i> Captured!';
+            captureBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Captured!';
             captureBtn.disabled = true;
 
             setTimeout(() => {
@@ -1990,10 +1816,7 @@
           document.getElementById("realtimeAngle").textContent = "0.0°";
           document.getElementById("angleStatus").textContent =
             "Waiting for data...";
-          updateConnectionStatus(
-            "disconnected",
-            "Not Connected to the Bat Segment"
-          );
+          updateConnectionStatus("disconnected", "Not Connected to the Bat Segment");
 
           // Clear registered players data
           allRegisteredPlayers = [];
@@ -2083,8 +1906,7 @@
             try {
               emailStatus.style.display = "block";
               emailStatus.className = "email-status sending";
-              emailStatus.innerHTML =
-                '<i class="fa-solid fa-spinner fa-spin"></i> Sending welcome email...';
+              emailStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending welcome email...';
 
               // Send email using EmailJS v4 API
               emailjs
@@ -2106,16 +1928,12 @@
                 })
                 .catch((error) => {
                   emailStatus.className = "email-status failed";
-                  emailStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Email sending failed: ${
-                    error?.text || error?.message || "Unknown error occurred"
-                  }`;
+                  emailStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Email sending failed: ${error?.text || error?.message || "Unknown error occurred"}`;
                   reject(error);
                 });
             } catch (error) {
               emailStatus.className = "email-status failed";
-              emailStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Email sending failed: ${
-                error?.message || "Unknown error occurred"
-              }`;
+              emailStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Email sending failed: ${error?.message || "Unknown error occurred"}`;
               reject(error);
             }
           });
@@ -2389,8 +2207,7 @@
 
             // Visual feedback for reset button
             const originalText = resetBtn.innerHTML;
-            resetBtn.innerHTML =
-              '<i class="fa-solid fa-circle-check"></i> Reset';
+            resetBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Reset';
             resetBtn.disabled = true;
 
             setTimeout(() => {
@@ -2450,6 +2267,8 @@
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+
 
             const data = await response.json();
 
