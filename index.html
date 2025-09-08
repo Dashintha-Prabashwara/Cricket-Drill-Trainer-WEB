@@ -13,7 +13,7 @@
       // Initialize EmailJS once with latest API
       (function () {
         emailjs.init({
-          publicKey: "DM0KQ0ibd0LM2xSiU",
+          publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
         });
       })();
     </script>
@@ -1865,7 +1865,7 @@
         async function validatePlayerId(playerId) {
           try {
             const response = await fetch(
-              "https://p7asm2xpue.execute-api.ap-south-1.amazonaws.com/prod/validate",
+              "YOUR_VALIDATE_PLAYER_ID_API_ENDPOINT",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -1911,8 +1911,8 @@
               // Send email using EmailJS v4 API
               emailjs
                 .send(
-                  "service_w91dpc2", // Replace with your actual service ID
-                  "template_b7il7hs", // Replace with your actual template ID
+                  "YOUR_EMAILJS_SERVICE_ID", // Replace with your actual service ID
+                  "YOUR_EMAILJS_TEMPLATE_ID", // Replace with your actual template ID
                   {
                     to_email: playerEmail,
                     player_name: playerName,
@@ -2128,7 +2128,7 @@
             submitBtn.textContent = "Registering...";
 
             const response = await fetch(
-              "https://ysv2sqmiah.execute-api.ap-south-1.amazonaws.com/prod_StoreDataFromWEB/store",
+              "YOUR_STORE_PLAYER_API_ENDPOINT",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -2261,7 +2261,7 @@
 
             // Replace with your actual API endpoint for fetching registered players
             const response = await fetch(
-              "https://69t9obfuv6.execute-api.ap-south-1.amazonaws.com/Fetch_DataForWeb/fetch"
+              "YOUR_FETCH_REGISTERED_PLAYERS_API_ENDPOINT"
             );
 
             if (!response.ok) {
@@ -2903,7 +2903,7 @@
             loadBtn.disabled = true;
 
             const response = await fetch(
-              "https://r6n75wq3kj.execute-api.ap-south-1.amazonaws.com/prod_FetchForWeb/fetch"
+              "YOUR_FETCH_SUBMISSIONS_API_ENDPOINT"
             );
 
             if (!response.ok) {
