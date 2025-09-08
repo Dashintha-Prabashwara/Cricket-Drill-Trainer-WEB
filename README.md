@@ -210,3 +210,56 @@ Expected fields include overall metrics, foot segment data, and enhanced bat seg
 ---
 
 This Player Dashboard provides a comprehensive solution for cricket training facilities to manage player registrations and track performance using modern IoT sensors and web technologies.
+
+# Player Dashboard
+
+A web-based dashboard for player registration and performance monitoring.
+
+## Setup Instructions
+
+1. Clone the repository
+2. Create a `credentials.json` file in the root directory with the following structure:
+```json
+{
+    "emailjs": {
+        "publicKey": "YOUR_PUBLIC_KEY",
+        "serviceId": "YOUR_SERVICE_ID",
+        "templateId": "YOUR_TEMPLATE_ID"
+    },
+    "apis": {
+        "storePlayer": "YOUR_STORE_PLAYER_API_URL",
+        "validatePlayerId": "YOUR_VALIDATE_PLAYER_ID_API_URL",
+        "fetchRegisteredPlayers": "YOUR_FETCH_REGISTERED_PLAYERS_API_URL",
+        "fetchSubmissions": "YOUR_FETCH_SUBMISSIONS_API_URL"
+    }
+}
+```
+
+3. Update the `credentials.json` file with your actual credentials
+4. Open `index.html` in a web browser
+
+## Features
+
+- Player registration with angle measurements
+- Real-time angle monitoring via WebSocket connection
+- Email notifications using EmailJS
+- Player data management and search
+- Performance tracking and submissions
+- Responsive design for mobile devices
+
+## Security Notes
+
+- The `credentials.json` file is included in `.gitignore` to prevent sensitive data exposure
+- Keep a secure backup of your credentials
+- Consider using environment variables for production deployments
+
+## Default Login
+
+- Username: admin
+- Password: 1234
+
+## WebSocket Connection
+
+The application connects to an ESP32 device for real-time angle measurements:
+- Default ESP32 IP: 10.34.29.41
+- WebSocket Port: 81
