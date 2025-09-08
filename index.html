@@ -13,7 +13,7 @@
       // Initialize EmailJS once with latest API
       (function () {
         emailjs.init({
-          publicKey: "YOUR_PUBLIC_KEY", // Replace with your EmailJS public key
+          publicKey: "DM0KQ0ibd0LM2xSiU",
         });
       })();
     </script>
@@ -161,9 +161,9 @@
         display: flex;
         border-bottom: 2px solid #e1e5e9;
         margin-bottom: 2rem;
-        gap: 2rem;
-        justify-content: center;
-        padding: 0 1rem; 
+        gap: 2rem; /* Add space between tabs */
+        justify-content: center; /* Center the tabs */
+        padding: 0 1rem; /* Add horizontal padding */
       }
 
       .tab {
@@ -178,7 +178,7 @@
         align-items: center;
         gap: 8px;
         justify-content: center;
-        padding: 1rem 2rem;
+        padding: 1rem 2rem; /* Increase padding around tab text */
       }
 
       .tab.active {
@@ -549,10 +549,12 @@
         margin: 0;
       }
 
+      /* Update form-group to accommodate the new container */
       .form-group .angle-input-container {
         width: 100%;
       }
 
+      /* Segment Performance Styling */
       .segment-header {
         grid-column: 1 / -1;
         margin-top: 1rem;
@@ -597,6 +599,7 @@
         border-left-color: #ff9a56;
       }
 
+      /* Enhanced Performance Display Styles */
       .enhanced-performance-indicator {
         background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
         color: white;
@@ -619,6 +622,7 @@
         display: inline-block;
       }
 
+      /* Grip Performance Specific Styling */
       .grip-performance-section {
         background: rgba(255, 107, 107, 0.05);
         border-radius: 8px;
@@ -637,6 +641,7 @@
         grid-column: 1 / -1;
       }
 
+      /* Performance value color coding */
       .performance-value-excellent {
         color: #11998e !important;
         font-weight: bold !important;
@@ -652,6 +657,7 @@
         font-weight: bold !important;
       }
 
+      /* Enhanced segment headers */
       .segment-header {
         grid-column: 1 / -1;
         margin-top: 1rem;
@@ -695,6 +701,7 @@
         color: #ff9a56;
       }
 
+      /* Performance metric containers */
       .performance-metric {
         background: rgba(79, 172, 254, 0.08);
         border-radius: 8px;
@@ -726,6 +733,7 @@
         background: rgba(255, 154, 86, 0.12);
       }
 
+      /* Data type indicator styling */
       .data-type-enhanced {
         background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
         color: white;
@@ -748,6 +756,7 @@
         letter-spacing: 0.5px;
       }
 
+      /* Responsive adjustments for mobile */
       @media (max-width: 768px) {
         .segment-header .player-detail-label {
           font-size: 1rem;
@@ -764,6 +773,7 @@
         }
       }
 
+      /* NEW: Collapsible player card styles */
       .player-card-header {
         background: white;
         padding: 1rem 1.5rem;
@@ -832,12 +842,13 @@
       }
 
       .player-details-container.expanded {
-        max-height: 2000px;
+        max-height: 2000px; /* Adjust based on your content */
         padding: 1.5rem;
         border-left: 4px solid #11998e;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
+      /* Enhanced registered player cards for submissions */
       .submission-card-header {
         border-left-color: #4facfe;
       }
@@ -854,6 +865,7 @@
         color: #4facfe;
       }
 
+      /* Mobile responsiveness for new layout */
       @media (max-width: 768px) {
         .player-summary,
         .submission-summary {
@@ -1422,7 +1434,7 @@
         let connectionAttempts = 0;
         const MAX_RECONNECTION_ATTEMPTS = 5;
 
-        // WebSocket connection functions
+        // NEW: WebSocket connection functions
         function toggleConnection() {
           if (isConnected) {
             disconnectFromESP32();
@@ -1572,7 +1584,7 @@
                 );
                 document.getElementById("connectBtn").disabled = false;
               }
-            }, 10000);
+            }, 10000); // 10 second timeout
           } catch (error) {
             console.error("Connection error:", error);
             handleDisconnection();
@@ -1646,7 +1658,7 @@
 
         let currentPitch = 0;
         let currentRoll = 0;
-        // Object to store captured angle data with pitch and roll
+        // NEW: Object to store captured angle data with pitch and roll
         let capturedAngleData = {};
 
         function captureCurrentAngle() {
@@ -1717,7 +1729,7 @@
           }
         }
 
-        // Function to update the angle display box
+        // NEW: Function to update the angle display box
         function updateAngleDisplay(angleType, angleValue) {
           const displayElementId =
             "display" + angleType.charAt(0).toUpperCase() + angleType.slice(1);
@@ -1777,6 +1789,7 @@
         }
 
         // Logout functionality
+        // Enhanced logout functionality
         function logout() {
           // Disconnect from ESP32 if connected
           if (isConnected) {
@@ -1818,7 +1831,7 @@
           }
         }
 
-        // Tab switching functionality
+        // Tab switching functionality - Updated to handle new tab
         function switchTab(tabName, event) {
           // Remove active class from all tabs and tab contents
           document
@@ -1848,7 +1861,7 @@
           return id;
         }
 
-        //  Player ID availability
+        // NEW: Validate Player ID availability
         async function validatePlayerId(playerId) {
           try {
             const response = await fetch(
@@ -1866,21 +1879,26 @@
 
             const result = await response.json();
 
+            // Assuming the API returns { available: true/false } or { exists: true/false }
+            // Adjust this based on your actual API response format
             return result.available === true || result.exists === false;
           } catch (error) {
             console.error("Player ID validation error:", error);
+            // In case of API error, assume ID is taken to be safe
             return false;
           }
         }
 
-        // Generate unique Player ID with validation
+        // NEW: Generate unique Player ID with validation
         async function generateUniquePlayerId(handedness) {
+          // For now, skip validation and just generate an ID
+          // TODO: Fix validation API later
           const playerId = generatePlayerId(handedness);
           console.log("Generated Player ID (validation bypassed):", playerId);
           return playerId;
         }
 
-        // Email sending functionality using EmailJS
+        // Email sending functionality using EmailJS v4 - Updated API
         function sendWelcomeEmail(playerName, playerEmail, playerId) {
           return new Promise((resolve, reject) => {
             const emailStatus = document.getElementById("emailStatus");
@@ -1893,8 +1911,8 @@
               // Send email using EmailJS v4 API
               emailjs
                 .send(
-                  "", // Replace with your actual service ID
-                  "", // Replace with your actual template ID
+                  "service_w91dpc2", // Replace with your actual service ID
+                  "template_b7il7hs", // Replace with your actual template ID
                   {
                     to_email: playerEmail,
                     player_name: playerName,
@@ -2070,6 +2088,8 @@
               return;
             }
 
+            // Updated payload to include all angle fields - MOVED AFTER playerId generation
+            // Enhanced payload to include pitch and roll data for each angle
             const payload = {
               playerId,
               name: playerName,
@@ -2085,7 +2105,7 @@
               pullEndAngle: parseFloat(pullEndAngle),
               timestamp: new Date().toISOString(),
 
-              // Add pitch and roll data for each captured angle
+              // NEW: Add pitch and roll data for each captured angle
               angleData: {
                 stanceAngle: capturedAngleData.stanceAngle || null,
                 forwardDefenceEndAngle:
@@ -2108,7 +2128,7 @@
             submitBtn.textContent = "Registering...";
 
             const response = await fetch(
-              "Your API endpoint here", // Replace with your actual API endpoint
+              "https://ysv2sqmiah.execute-api.ap-south-1.amazonaws.com/prod_StoreDataFromWEB/store",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -2133,7 +2153,8 @@
               // Don't show error to user as registration was successful
             }
 
-            // Clear form - Clear all new fields and captured data
+            // Clear form - Updated to clear all new fields
+            // Clear form - Updated to clear all new fields and captured data
             document.getElementById("playerName").value = "";
             document.getElementById("playerAge").value = "";
             document.getElementById("playerEmail").value = "";
@@ -2146,7 +2167,7 @@
             document.getElementById("cutEndAngle").value = "";
             document.getElementById("pullEndAngle").value = "";
 
-            // Clear captured angle data
+            // NEW: Clear captured angle data
             capturedAngleData = {};
             clearAngleDisplays();
 
@@ -2225,7 +2246,7 @@
           document.getElementById("anglesTimestamp").textContent = "Not set";
         }
 
-        // Fetch Registered Players functionality
+        // NEW: Fetch Registered Players functionality
         async function fetchRegisteredPlayers() {
           const registeredDiv = document.getElementById("registeredPlayers");
           const loadingDiv = document.getElementById("registeredLoading");
@@ -2240,7 +2261,7 @@
 
             // Replace with your actual API endpoint for fetching registered players
             const response = await fetch(
-              "Your API endpoint here"
+              "https://69t9obfuv6.execute-api.ap-south-1.amazonaws.com/Fetch_DataForWeb/fetch"
             );
 
             if (!response.ok) {
@@ -2280,7 +2301,8 @@
           }
         }
 
-        // Display registered players with collapsible details
+        // NEW: Display registered players with enhanced styling
+        // UPDATED: Display registered players with collapsible details
         function displayRegisteredPlayers(players) {
           const registeredDiv = document.getElementById("registeredPlayers");
 
@@ -2821,10 +2843,12 @@
               angleWrong.includes(searchTerm) ||
               gripSuccess.includes(searchTerm) ||
               angleSuccess.includes(searchTerm) ||
+              // Allow searching for "enhanced" to find enhanced submissions
               (searchTerm.includes("enhanced") &&
                 (submission.has_enhanced_bat_data === true ||
                   submission.data_type ===
                     "performance_update_enhanced_combined")) ||
+              // Allow searching for "grip" or "angle" to find enhanced submissions
               (searchTerm.includes("grip") &&
                 submission.bat_grip_correct_count !== undefined) ||
               (searchTerm.includes("angle") &&
@@ -2835,7 +2859,7 @@
           displaySubmissions(filteredSubmissions);
         }
 
-        // Filter players based on search input
+        // NEW: Filter players based on search input
         function filterPlayers() {
           const searchTerm = document
             .getElementById("playerSearch")
@@ -2879,7 +2903,7 @@
             loadBtn.disabled = true;
 
             const response = await fetch(
-              "Your API endpoint here" // Replace with your actual API endpoint for fetching submissions
+              "https://r6n75wq3kj.execute-api.ap-south-1.amazonaws.com/prod_FetchForWeb/fetch"
             );
 
             if (!response.ok) {
@@ -2929,7 +2953,7 @@
           }
         });
 
-        // Toggle player details visibility
+        // NEW: Toggle player details visibility
         function togglePlayerDetails(detailsId) {
           const detailsContainer = document.getElementById(
             `details-${detailsId}`
