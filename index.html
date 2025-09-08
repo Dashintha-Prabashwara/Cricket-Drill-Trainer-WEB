@@ -11,11 +11,7 @@
     ></script>
     <script>
       // Initialize EmailJS once with latest API
-      (function () {
-        emailjs.init({
-          publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
-        });
-      })();
+      // EmailJS initialization moved to credentials loading code
     </script>
     <!-- Font Awesome for icons -->
     <link
@@ -1423,6 +1419,19 @@
       </div>
 
       <script>
+        // Load credentials from json file
+      let credentials = {};
+      fetch('credentials.json')
+        .then(response => response.json())
+        .then(data => {
+          credentials = data;
+          // Initialize EmailJS with loaded credentials
+          emailjs.init({
+            publicKey: credentials.emailjs.publicKey,
+          });
+        })
+        .catch(error => console.error('Error loading credentials:', error));
+
         // Global variable to store registered players data for filtering
         let allRegisteredPlayers = [];
         let allSubmissions = [];
@@ -1865,7 +1874,7 @@
         async function validatePlayerId(playerId) {
           try {
             const response = await fetch(
-              "YOUR_VALIDATE_PLAYER_ID_API_ENDPOINT",
+              credentials.apis.validatePlayerId,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -1911,8 +1920,8 @@
               // Send email using EmailJS v4 API
               emailjs
                 .send(
-                  "YOUR_EMAILJS_SERVICE_ID", // Replace with your actual service ID
-                  "YOUR_EMAILJS_TEMPLATE_ID", // Replace with your actual template ID
+                  credentials.emailjs.serviceId,
+                  credentials.emailjs.templateId
                   {
                     to_email: playerEmail,
                     player_name: playerName,
@@ -2128,7 +2137,7 @@
             submitBtn.textContent = "Registering...";
 
             const response = await fetch(
-              "YOUR_STORE_PLAYER_API_ENDPOINT",
+              credentials.apis.storePlayer,
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -2261,11 +2270,11 @@
 
             // Replace with your actual API endpoint for fetching registered players
             const response = await fetch(
-              "YOUR_FETCH_REGISTERED_PLAYERS_API_ENDPOINT"
+              "              credentials.apis.fetchRegisteredPlayers"
             );
 
             if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+                           throw new Error(`HTTP error! status: ${response.status}`);
             }
 
 
@@ -2903,7 +2912,7 @@
             loadBtn.disabled = true;
 
             const response = await fetch(
-              "YOUR_FETCH_SUBMISSIONS_API_ENDPOINT"
+              "              credentials.apis.fetchSubmissions"
             );
 
             if (!response.ok) {
